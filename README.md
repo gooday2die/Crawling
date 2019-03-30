@@ -26,8 +26,4 @@ Todo list
 - Title
 - Information
 
-3. to be continued
-
-
-
-
+3. to be continued...
