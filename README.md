@@ -16,10 +16,10 @@ Crawling a Webpage where you command . Get necessary information from the webpag
 Todo list
 
 1. Online Shops
-- Name
-- Price
-- Rating
-- Availability 
+- Name ... Done!
+- Price ... Done!
+- Rating ... Done!
+- Availability ... Done!
 - Save in DB
 
 2. Blogs (Usually Posts)
