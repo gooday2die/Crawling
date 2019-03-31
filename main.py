@@ -83,7 +83,7 @@ def getSpecificBookName(no):
     title = soup.find("h1") #variable title is the one with html tags
     #print(soup2)
     BookName = title.get_text() #variable BookName is the on without html tags. Just book names.
-    print("# " + str(no+1) +" " +str(BookName))
+    print("# " + str(no) +" " +str(BookName))
 
 
 
@@ -136,20 +136,57 @@ def getSpecificBookImg(no):
 
 
 #Function Starts from Here.
+#Right Below is Global Declaration
+#getCommand Function is a recursive function.
 
 main_page_products_urls = [x.div.a.get('href') for x in soup.findAll("article", class_ = "product_pod")]
+totalBookNO = len(main_page_products_urls)
 print("There are " + str(len(main_page_products_urls)) +" Books in the page")
 
-totalBookNO = len(main_page_products_urls)
+command = 0
 
-i = 0 #i is for while loop
-while (i < totalBookNO):
-    getSpecificBookName(i)
-    getSpecificBookPrice(i)
-    getSpecificBookAvail(i)
-    getSpecificBookRating(i)
-    getSpecificBookImg(i)
+def getCommand():
     print("")
+    print("Maunal Search : M")
+    print("Automatic Search : A")
+    print("Quit : Q")
+    print("")
+    command = input()
 
-    i = i + 1
+    if (command == "M" or command == "m"):
+        print("Enter Book Number (Starts from 0)")
+        manual = int(input())
+        bookno = manual
 
+        getSpecificBookName(bookno)
+        getSpecificBookPrice(bookno)
+        getSpecificBookAvail(bookno)
+        getSpecificBookRating(bookno)
+        getSpecificBookImg(bookno)
+
+        getCommand()
+
+    if (command == "A" or command == "a"):
+        i = 0 #i is for while loop
+        while (i < totalBookNO):
+            print("")
+            getSpecificBookName(i)
+            getSpecificBookPrice(i)
+            getSpecificBookAvail(i)
+            getSpecificBookRating(i)
+            getSpecificBookImg(i)
+            print("")
+            i = i + 1
+            
+        getCommand()
+
+    if (command == "Q" or command == "q"):
+        exit()
+
+
+    if (command != "A" and command != "M" and command != "Q" and command != "a" and command != "m" and command != "q"):
+        print("Wrong Value")
+        print("")
+        getCommand()
+
+getCommand()
