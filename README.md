@@ -37,7 +37,7 @@ Use APIs for useful data. Now using 1001Tracklist, Beatport, Spotify APIs for de
 1. Get Tracklists from 1001Tracklist using their API
 - Search By Keywords ... Done!
 - Get Tracklists ... Done!
-- Save In DB ... Working
+- Save In DB ... Done!
 
 2. Make a Playlist in Spotify using their API
 - Planning
