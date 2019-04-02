@@ -17,8 +17,8 @@ def noticeKnockKnock(no):
     soup = BeautifulSoup(result.text, 'html.parser')
     print(soup)
 
-    Title = soup.find(class_ = "post_title").get_text() #Title of the post
-    By =  soup.find(class_ = "post_info").get_text() # Writer of the post, visitors , written time
+    Title = soup.find(class_ = "post_title").get_text().replace("	","") #Title of the post
+    By =  soup.find(class_ = "post_info").get_text().replace("	","") # Writer of the post, visitors , written time
     Post = soup.find(class_ = "post_detail").get_text() # details of the post
     Downloads = soup.find_all("href")
 
@@ -32,13 +32,25 @@ def noticeKnockKnock(no):
 
 
 def normalKnockKnock(no):
-    main_url = ("http://220.149.244.192/board.php?id=" + str(no))
+    main_url = ("http://220.149.244.192/board_click.php?id=" + str(no))
     result = requests.get(main_url)
     soup = BeautifulSoup(result.text, 'html.parser')
     print(soup)
 
+    Title = soup.find(class_ = "post_title").get_text().replace("	","") #Title of the post
+    By =  soup.find(class_ = "post_info").get_text().replace("	","") # Writer of the post, visitors , written time
+    Post = soup.find(class_ = "post_detail").get_text() # details of the post
+    Downloads = soup.find_all("href")
+
+    print("-----------------------------------------------------------------< # " + str(no) +" Board Issue >-----------------------------------------------------------------")
+    print(Title)
+    print("\n\n\n")
+    #print(By)
+    print(Post)
+    print("\n\n\n")
 
 noticeKnockKnock(1)
+#normalKnockKnock(2)
 
 def findingNIMO():
     i = 0
