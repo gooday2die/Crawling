@@ -2,11 +2,14 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import json
+import MysqlQuery
 
 
 
 #For Tracklist Crawling Functions Start
 
+
+import mysql.connector
 
 
 
@@ -30,7 +33,9 @@ def GetTracks(URL):
     while(i< maxlength):
         print("")
         print("# " + str(i + 1) + " Track")
-        print(JSONlist['tracks'][i]['trackTitle'])
+        CurrentTrack = JSONlist['tracks'][i]['trackTitle']
+        print(CurrentTrack)
+        MysqlQuery.inputToDB(CurrentTrack,URL)
         print("")
 
         i = i + 1
@@ -76,7 +81,7 @@ def GetTracklist(search):
     #SearchLists = (((result.text.replace("},{","\n")).replace("{\"results\":[{","")).replace("}]}","")).replace("\"title\":","")
     #print(SearchLists)
 
-def gettracklistcommand():
+def GetTrackListCommand():
     print("Query for :")
     search = input("")
     GetTracklist(search)
@@ -86,4 +91,7 @@ def gettracklistcommand():
     URL = input("")
     GetTracks(URL)
 
-gettracklistcommand()
+    return
+
+GetTrackListCommand()
+#GetTracks("https://www.1001tracklists.com/tracklist/2bq6fvfk/illenium-live-arena-ultra-music-festival-miami-miami-music-week-united-states-2019-03-30.html") For Example
