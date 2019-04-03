@@ -17,7 +17,7 @@ Get Basic Board Informations
   
   It returns JSON file as it's result. 
 
-- Getting Recent Posts Automatically from both boards(Notice, Normal)
+- Getting Recent Posts Automatically from both boards(Notice, Normal) ... Done!
   By using index, we can get the recent post ids.
 
 
