@@ -15,7 +15,7 @@ soup = BeautifulSoup(result.text, 'html.parser')
 
 #print(soup)
 
-def noticeKnockKnock(no):
+def noticeKnockKnock(no): # for getting notice posts
     main_url = ("http://220.149.244.192/notice_click.php?id=" + str(no))
     result = requests.get(main_url)
     soup = BeautifulSoup(result.text, 'html.parser')
@@ -24,19 +24,24 @@ def noticeKnockKnock(no):
     Title = soup.find(class_ = "post_title").get_text().replace("	","") #Title of the post
     By =  soup.find(class_ = "post_info").get_text().replace("	","") # Writer of the post, visitors , written time
     Post = soup.find(class_ = "post_detail").get_text() # details of the post
-    Downloads = soup.find_all("href")
+    Comments = soup.find(class_ = "reply")
+    #Downloads = soup.find_all(class_ =  "post_attachment case")
 
-    print("---------------------------------------------------------------------------------------------------------< # " + str(no) +" Notice >---------------------------------------------------------------------------------------------------------")
+    #print(Downloads)
+
+    print("--------------------------------------------------------------------------------------------------------< Notice ID : " + str(no) +" >--------------------------------------------------------------------------------------------------------")
     print(Title)
     print("\n\n\n")
-    #print(By)
+    print(By)
     print(Post)
+    if (str(Comments) != "None"):
+        print(Comments.get_text())
     print("\n\n\n")
     print("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
 
 
 
-def normalKnockKnock(no):
+def normalKnockKnock(no): # for getting normal posts
     main_url = ("http://220.149.244.192/board_click.php?id=" + str(no))
     result = requests.get(main_url)
     soup = BeautifulSoup(result.text, 'html.parser')
@@ -45,13 +50,17 @@ def normalKnockKnock(no):
     Title = soup.find(class_ = "post_title").get_text().replace("	","") #Title of the post
     By =  soup.find(class_ = "post_info").get_text().replace("	","") # Writer of the post, visitors , written time
     Post = soup.find(class_ = "post_detail").get_text() # details of the post
+    Comments = soup.find(class_ = "reply")
+
     Downloads = soup.find_all("href")
 
-    print("----------------------------------------------------------------------------------------------------< # " + str(no) +" Board Issue >---------------------------------------------------------------------------------------------------------")
+    print("---------------------------------------------------------------------------------------------------< Normal Post ID : " + str(no) +" >--------------------------------------------------------------------------------------------------------")
     print(Title)
     print("\n\n\n")
-    #print(By)
+    print(By)
     print(Post)
+    if (str(Comments) != "None"):
+        print(Comments.get_text())
     print("\n\n\n")
     print("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
 
@@ -98,39 +107,68 @@ def getEmail(URL , i):
     email = JSONlist['ParsedResults'][0]['ParsedText']
     print(" Email : " + str(email))
 
-#getEmail("http://220.149.244.192/css/image/shin_email.PNG")
+
 
 
 
 
 
 def findingNIMO():
-    i = 0
-    SAVE = []
 
 
     URL =  (soup.find_all( class_ = "single_post"))
 
-    print(len(URL))
+
+    #print(len(URL))
     maxI = len(URL)
+
+    #print(URL)
+    URLS = [a['href'] for a in soup.find_all(class_ = "single_post")] #URLS for new posts.
+    #print(URLS)
+
+    i = 0 #all while loops
+    m = 0 # just Notice while loops for saving data
+    n = 0 # just Board while loops for saving data
+    j = 0 # for while loop for showing data of Notice
+    k = 0 # for while loop for showing data of Board
+
 
 
     while (i < maxI):
-        print(URL[1])
-        i = i + 1
+        if "notice_click.php" in URLS[i]:
+            NoticeIDList = ""
+            NoticeIDList = URLS[i].replace("notice_click.php?id=","")
+
+            noticeKnockKnock(NoticeIDList)
+
+            i = i + 1
+            m = m + 1
+
+        if "board_click.php" in URLS[i]:
+            BoardIDList = ""
+            BoardIDList = URLS[i].replace("board_click.php?id=", "").replace("&ann=" , "")
+
+            normalKnockKnock(BoardIDList)
+
+            i = i + 1
+            n = n + 1
+
+    print("We found those information from the index")
+    print("There are " + str(m) + " recent Notice Board Posts")
+    print("There are " + str(n) + " recent Normal Board Posts")
 
 
-#findingNIMO()
 
 
-def traash():
-    for a in soup.find_all('a', href=True):
-        print("Found the URL:", a['href'])
-        SAVE[i] = a['href']
-        i = i + 1
+findingNIMO()
 
 
 
-noticeKnockKnock(1)
-normalKnockKnock(2)
-contactsKnockKnock()
+
+
+#noticeKnockKnock(1)
+#normalKnockKnock(1)
+#normalKnockKnock(8)
+
+#contactsKnockKnock()
+
