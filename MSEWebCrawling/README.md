@@ -5,10 +5,10 @@ Get Basic Board Informations
 (such as Notice Board , Free Board) 
 
 - Notice ...  Done!
-  Need attachments part. (Seems Easy)
+  Need attachments part. (Seems Easy) -> (Confirmed hard)
   
 - All Boards ...  Done!
-  Need attachments part. (Seems Easy)
+  Need attachments part. (Seems Easy) -> (Confirmed hard)
 
 - Professor Contacts ... Done!
   Since the emails of professors are saved as an image file, I used OCR to get professor's emails.
@@ -17,18 +17,15 @@ Get Basic Board Informations
   
   It returns JSON file as it's result. 
 
-All the functions are named ~KnockKnock Since I was listening to Knock Knock by Twice when I was looking for it's Names :P
+- Getting Recent Posts Automatically from both boards(Notice, Normal)
+  By using index, we can get the recent post ids.
+
 
 TODO List
+- Need to add commands. (Seems easy)
 
-We can see that all the posts have specific nubmer. 
-For Example, notice_click.php?id=1
-
-But this bot does not know where to stop.
-It can go up to notice_click.php?id=100000000 which does not exist.
-
-So we need to limit the max nubmer.
+- Getting Schedules Board. (Seems kind of not that useful)
 
 
-    We can solve this problem by using the index.html.
-    The latest ones are on the index main page. So by using that, We can see the limit of the pages.
+
+All the functions are named ~KnockKnock Since I was listening to Knock Knock by Twice when I was looking for it's Names :P
