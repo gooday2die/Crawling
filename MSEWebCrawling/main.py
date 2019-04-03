@@ -19,19 +19,20 @@ def noticeKnockKnock(no):
     main_url = ("http://220.149.244.192/notice_click.php?id=" + str(no))
     result = requests.get(main_url)
     soup = BeautifulSoup(result.text, 'html.parser')
-    print(soup)
+    #print(soup)
 
     Title = soup.find(class_ = "post_title").get_text().replace("	","") #Title of the post
     By =  soup.find(class_ = "post_info").get_text().replace("	","") # Writer of the post, visitors , written time
     Post = soup.find(class_ = "post_detail").get_text() # details of the post
     Downloads = soup.find_all("href")
 
-    print("-----------------------------------------------------------------< # " + str(no) +" Notice >-----------------------------------------------------------------")
+    print("---------------------------------------------------------------------------------------------------------< # " + str(no) +" Notice >---------------------------------------------------------------------------------------------------------")
     print(Title)
     print("\n\n\n")
     #print(By)
     print(Post)
     print("\n\n\n")
+    print("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
 
 
 
@@ -46,12 +47,14 @@ def normalKnockKnock(no):
     Post = soup.find(class_ = "post_detail").get_text() # details of the post
     Downloads = soup.find_all("href")
 
-    print("-----------------------------------------------------------------< # " + str(no) +" Board Issue >-----------------------------------------------------------------")
+    print("----------------------------------------------------------------------------------------------------< # " + str(no) +" Board Issue >---------------------------------------------------------------------------------------------------------")
     print(Title)
     print("\n\n\n")
     #print(By)
     print(Post)
     print("\n\n\n")
+    print("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+
 
 def contactsKnockKnock():
     main_url = ("http://220.149.244.192/contact.php")
@@ -61,18 +64,29 @@ def contactsKnockKnock():
     EmailImageURL = [img['src'] for img in soup.find_all('img')]
     #print(len(EmailImageURL))
     #print(EmailImageURL)
+    print("-----------------------------------------------------------------------------------------------------< Professor's Contacts >----------------------------------------------------------------------------------------------------")
+    print("")
 
-    print("There are " + str(len(Contacts)) + " professors")
+    print("There are " + str(len(Contacts)) + " professors in MSE ]\n\n")
     MaxI = len(Contacts)
 
     i = 0
 
     while ( i < MaxI ):
+
+        if (i == 0):
+                print("< Professor # 1 >  > -------------------------------")
+        if (i != 0):
+                print("< Professor # " + str(i) + " > ----------------------------------")
+
         print(Contacts[i].get_text())
-        print(EmailImageURL[(2 + 2 * i)]) #( 2 4 6 8 )
-        print("")
+        #print(EmailImageURL[(2 + 2 * i)]) #( 2 4 6 8 )
         getEmail((EmailImageURL[(2 + 2 * i)]) , i)
         i = i + 1
+
+
+    print("----------------------------------------------------------------------------------------------------------------------------------------------------")
+
 
 
 def getEmail(URL , i):
@@ -82,7 +96,7 @@ def getEmail(URL , i):
     JSONlist = json.loads(str(result.text))  # for JSON Query
     #print(json.dumps(JSONlist, indent=2, sort_keys=True)) #For JSON's list
     email = JSONlist['ParsedResults'][0]['ParsedText']
-    print(email)
+    print(" Email : " + str(email))
 
 #getEmail("http://220.149.244.192/css/image/shin_email.PNG")
 
@@ -117,6 +131,6 @@ def traash():
 
 
 
-#noticeKnockKnock(1)
-#normalKnockKnock(2)
+noticeKnockKnock(1)
+normalKnockKnock(2)
 contactsKnockKnock()
